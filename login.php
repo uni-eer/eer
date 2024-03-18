@@ -1,0 +1,119 @@
+<?php
+include "php/db.php";
+// Auth part
+if (isset($_SESSION['auth'])) {
+  header("location: $_SESSION[role_url]");
+}
+$showError = false;
+
+// Check if the form is submitted
+if (isset($_POST['signin_btn'])) {
+    // Retrieve and sanitize form data
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    // Check if email exists in the database
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
+    $num = mysqli_num_rows($result);
+
+    if ($num == 1) {
+        $row = mysqli_fetch_assoc($result);
+        // Verify the password with the hashed password in the database
+        if (password_verify($password, $row['password'])) {
+            // Password is correct, start the session
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $row['username'];
+            $_SESSION['email'] = $email;
+
+            // Redirect to a different page based on role, for example
+            $role_id = $row['role_id'];
+            // Assuming you have a column 'role_id' and a way to determine role-based redirect URL
+            $roleData = mysqli_query($conn, "SELECT url FROM roles WHERE id = '$role_id'");
+            if($roleData && $roleRow = mysqli_fetch_assoc($roleData)) {
+              $user_data = mysqli_query($conn, "SELECT * FROM `users` WHERE `email`='$email'");
+              $fetch_user = mysqli_fetch_assoc($user_data);
+              $user_id = $fetch_user['id'];
+            $_SESSION['email'] = $email;
+            $_SESSION['auth'] = true;
+            $_SESSION['role'] = $role_id;
+            $_SESSION['user_id'] = $user_id;
+            $_SESSION['role_url'] = $roleRow['url'];
+                header("location: " . $roleRow['url']);
+            } else {
+                // Redirect to default page if role-specific URL not found
+                header("location: welcome.php"); // Adjust 'welcome.php' as needed
+            }
+            exit;
+        } else {
+            $showError = "Invalid password.";
+        }
+    } else {
+        $showError = "No user found with that email address.";
+    }
+
+    // Close the connection
+    mysqli_close($conn);
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css">
+    <title>User Login</title>
+</head>
+<body style="background-image: url('images/colorful-bg.png');">
+
+<div class="flex min-h-screen flex-col justify-center items-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <a href="index.php"><img class="mx-auto h-12 w-auto" src="images/logo.png" alt="EER logo"></a>
+      <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+    </div>
+  
+    <div class="mt-6 sm:mx-auto sm:w-full sm:max-w-md bg-white px-7 py-6 rounded-md shadow-sm">
+      <form class="space-y-6"  method="POST">
+      <?php if($showError){
+          ?>
+<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+  <span class="font-medium"><?=$showError?></span>
+</div>
+          <?php
+        } ?>
+        <div>
+          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email address</label>
+          <div class="mt-2">
+            <input id="email" name="email" type="email" autocomplete="email" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+  
+        <div>
+          <div class="flex items-center justify-between">
+            <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+            <div class="text-sm">
+              <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
+            </div>
+          </div>
+          <div class="mt-2">
+            <input id="password" name="password" type="password" autocomplete="password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+  
+        <div>
+          <button type="submit" name="signin_btn" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign in</button>
+        </div>
+      </form>
+  
+      <p class="mt-10 text-center text-sm text-gray-500">
+        Not a member?
+        <a href="signup.php" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Create a new account</a>
+      </p>
+    </div>
+  </div>
+  
+    <script src="js/flowbite.min.js"></script>
+</body>
+</html>
