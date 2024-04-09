@@ -8,35 +8,68 @@ if (!isset($_SESSION['role'])) {
   if(intval($_SESSION['role']) !== 2){
     header("location: ../logout.php");
   }
-$user_id = $_SESSION['user_id'];
+  if(isset($_GET['user_id'])){
+    $user_id = $_GET['user_id'];
+  }else{
+    $user_id = $_SESSION['user_id'];
+  }
+  if(isset($_GET['building_id'])){
+    $building_id = $_GET['building_id'];
+  }else{
+    $building_id = NULL;
+  }
 $showError = false;
 $showAlert = false;
 
 // Updating Profile
 if (isset($_POST['calculate'])) {
-    $ueo = mysqli_real_escape_string($conn, $_POST["ueo"]);
-    $tei = mysqli_real_escape_string($conn, $_POST["tei"]);
-    if (!is_numeric($ueo)) {
-        $showError = 'Useful Energy Output must be numeric!';
-    }else{
-        if (!is_numeric($tei)) {
-            $showError = 'Total Energy Input must be numeric!';
-        }else{
-            if(floatval($ueo) > floatval($tei)){
-            $showError = 'Total Energy Input must be greater than Useful Energy Output!';
-            }else{
-                if(intval($tei) === 0){
-                    $showAlert = 'EER = 0%';
-                    $eer = 0;
-                }else{
-                    // Formula
-                    $result = (floatval($ueo) / floatval($tei)) * 100;
-                    $showAlert = 'EER = '.' '. round($result, 2) .'%';
-                    $eer = round($result, 2);
-                }
-                $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`, `ueo`, `tei`, `eer`, `created_at`) VALUES ($user_id, '$ueo', '$tei', '$eer', current_timestamp())");
-            }
-        }
+    $lc = mysqli_real_escape_string($conn, $_POST["lc"]);
+    $hc = mysqli_real_escape_string($conn, $_POST["hc"]);
+    $hwc = mysqli_real_escape_string($conn, $_POST["hwc"]);
+    $tfa = mysqli_real_escape_string($conn, $_POST["tfa"]);
+    if (!is_numeric($lc)) {
+        $showError = 'Lighting Cost must be numeric!';
+    }else if(!is_numeric($hc)){
+      $showError = 'Heating Cost must be numeric!';
+    }else if(!is_numeric($hwc)){
+      $showError = 'Hot Water Cost must be numeric!';
+    }else if(!is_numeric($tfa)){
+      $showError = 'Total Floor Area must be numeric!';
+    }{
+      $ECD = 0.42;
+      $TEC = $lc + $hc + $hwc;
+      $TEC_per_TFA = $TEC / $tfa;
+  
+      if ($TEC_per_TFA < 3.5) {
+          $EER = 100 - 13.95 * $TEC_per_TFA;
+      } else {
+          $EER = 117 - 121 * log10($TEC_per_TFA);
+      }  
+
+      $rating_band = "";
+if ($EER >= 92) {
+    $rating_band = "A";
+} elseif ($EER >= 81) {
+    $rating_band = "B";
+} elseif ($EER >= 69) {
+    $rating_band = "C";
+} elseif ($EER >= 55) {
+    $rating_band = "D";
+} elseif ($EER >= 39) {
+    $rating_band = "E";
+} elseif ($EER >= 21) {
+    $rating_band = "F";
+} else {
+    $rating_band = "G";
+}
+$EER = round($EER,2);
+$showAlert = "EER = ". $EER . " and Rating Band is ". $rating_band;
+if($building_id !== NULL){
+  $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`,`building_id`, `lc`, `hc`, `hwc`, `tfa`,`rating_band`,`eer`, `created_at`) VALUES ($user_id,$building_id, '$lc', '$hc','$hwc', '$tfa', '$rating_band','$EER', current_timestamp())");
+}else{
+  $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`, `lc`, `hc`, `hwc`, `tfa`,`rating_band`,`eer`, `created_at`) VALUES ($user_id,'$lc', '$hc','$hwc', '$tfa', '$rating_band','$EER', current_timestamp())");
+}
+              
     }
 }
 
@@ -71,12 +104,20 @@ if (isset($_POST['calculate'])) {
     <?php } ?>
     <form method="post">
   <div class="mb-3">
-    <label for="ueo" class="form-label">Useful Energy Output</label>
-    <input type="text" name="ueo" class="form-control" id="ueo"  required>
+    <label for="lc" class="form-label">Lighting Cost</label>
+    <input type="text" name="lc" class="form-control" id="lc"  required>
   </div>
   <div class="mb-3">
-    <label for="tei" class="form-label">Total Energy Input</label>
-    <input type="text" name="tei" class="form-control" id="tei" required>
+    <label for="hc" class="form-label">Heating Cost</label>
+    <input type="text" name="hc" class="form-control" id="hc" required>
+  </div>
+  <div class="mb-3">
+    <label for="hwc" class="form-label">Hot Water Cost</label>
+    <input type="text" name="hwc" class="form-control" id="hwc" required>
+  </div>
+  <div class="mb-3">
+    <label for="tfa" class="form-label">Total Floor Area</label>
+    <input type="text" name="tfa" class="form-control" id="tfa" required>
   </div>
   <div class="w-full d-flex justify-content-end">
   <button type="submit" name="calculate" class="btn btn-primary">Calculate</button>

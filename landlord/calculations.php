@@ -46,8 +46,11 @@ $data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_
   <thead>
     <tr>
       <th scope="col">#</th>
-      <th scope="col">Useful Energy Output</th>
-      <th scope="col">Total Energy Input</th>
+      <th scope="col">LC</th>
+      <th scope="col">HC</th>
+      <th scope="col">HCW</th>
+      <th scope="col">TFA</th>
+      <th scope="col">Rating Band</th>
       <th scope="col">EER</th>
       <th scope="col">Calcualted At</th>
     </tr>
@@ -60,9 +63,12 @@ $data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_
 ?>
     <tr>
       <th scope="row"><?=$sno?></th>
-      <td><?=$fetch_rows['ueo']?></td>
-      <td><?=$fetch_rows['tei']?></td>
-      <td><?=$fetch_rows['eer']?>%</td>
+      <td><?=$fetch_rows['lc']?></td>
+      <td><?=$fetch_rows['hc']?></td>
+      <td><?=$fetch_rows['hwc']?></td>
+      <td><?=$fetch_rows['tfa']?></td>
+      <td><?=$fetch_rows['rating_band']?></td>
+      <td><?=$fetch_rows['eer']?></td>
       <td><?=date('d M, Y h:i A', strtotime($fetch_rows['created_at']))?></td>
     </tr>
 <?php

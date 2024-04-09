@@ -19,6 +19,7 @@ if (isset($_POST['update_profile'])) {
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
     $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
+    $address = mysqli_real_escape_string($conn, $_POST["address"]);
     $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
     // Phone number validation
@@ -45,7 +46,7 @@ if (isset($_POST['update_profile'])) {
             }
             
             // Update name and phone
-            mysqli_query($conn, "UPDATE `users` SET `fname` = '$fname', `lname` = '$lname', `phone` = '$phone' WHERE `id` = $user_id");
+            mysqli_query($conn, "UPDATE `users` SET `fname` = '$fname', `lname` = '$lname', `phone` = '$phone', `address` = '$address' WHERE `id` = $user_id");
 
             // Update Password if provided
             if (!empty($password)) {
@@ -105,6 +106,10 @@ $data = mysqli_fetch_assoc($logged_data);
   <div class="mb-3">
     <label for="phone" class="form-label">Phone Number</label>
     <input type="text" name="phone" class="form-control" id="phone" value="<?=$data['phone']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" required>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>

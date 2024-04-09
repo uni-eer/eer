@@ -15,9 +15,10 @@ if (isset($_POST['add_building'])) {
   $address = mysqli_real_escape_string($conn, $_POST['address']);
   $built_year = mysqli_real_escape_string($conn, $_POST['built_year']);
   $eer = mysqli_real_escape_string($conn, $_POST['eer']);
+  $potential = mysqli_real_escape_string($conn, $_POST['potential']);
   $grade = mysqli_real_escape_string($conn, $_POST['grade']);
 
-  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `address`, `built_year`, `eer`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '$eer', '$grade', current_timestamp())");
+  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `address`, `built_year`, `eer`, `potential`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '$eer', '$potential', '$grade', current_timestamp())");
 
   if($add_building_q){
 $showAlert = 'Building is added successfully!';
@@ -128,6 +129,10 @@ $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
   <div class="mb-3">
     <label for="eer" class="form-label">EER</label>
     <input type="text" name="eer" class="form-control" id="eer"  required> 
+  </div>
+  <div class="mb-3">
+    <label for="potential" class="form-label">Potential</label>
+    <input type="text" name="potential" class="form-control" id="potential"  required> 
   </div>
   <div class="mb-3">
     <label for="grade" class="form-label">Grade</label>

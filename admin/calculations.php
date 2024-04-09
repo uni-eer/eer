@@ -11,7 +11,7 @@ $showError = false;
 $showAlert = false;
 
 // fetching 
-$data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_id order by id desc");
+$data = mysqli_query($conn, "SELECT * FROM `calculations` order by id desc");
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,7 +30,6 @@ $data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_
    <div class="container mx-auto mt-5">
     <div class="d-flex justify-content-between">
 <div><h2>Calculations</h2></div>
-<div><a href="calculator.php" class="btn btn-primary">Add Calculation</a></div>
     </div>
     <?php if($showAlert){ ?>
       <div class="alert alert-success" role="alert">
@@ -47,8 +46,11 @@ $data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_
     <tr>
       <th scope="col">#</th>
       <th scope="col">User Email</th>
-      <th scope="col">Useful Energy Output</th>
-      <th scope="col">Total Energy Input</th>
+      <th scope="col">LC</th>
+      <th scope="col">HC</th>
+      <th scope="col">HCW</th>
+      <th scope="col">TFA</th>
+      <th scope="col">Rating Band</th>
       <th scope="col">EER</th>
       <th scope="col">Calcualted At</th>
       <th scope="col">Delete</th>
@@ -64,9 +66,12 @@ $data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_
     <tr>
       <th scope="row"><?=$sno?></th>
       <td><?=$user_get['email']?></td>
-      <td><?=$fetch_rows['ueo']?></td>
-      <td><?=$fetch_rows['tei']?></td>
-      <td><?=$fetch_rows['eer']?>%</td>
+      <td><?=$fetch_rows['lc']?></td>
+      <td><?=$fetch_rows['hc']?></td>
+      <td><?=$fetch_rows['hwc']?></td>
+      <td><?=$fetch_rows['tfa']?></td>
+      <td><?=$fetch_rows['rating_band']?></td>
+      <td><?=$fetch_rows['eer']?></td>
       <td><?=date('d M, Y h:i A', strtotime($fetch_rows['created_at']))?></td>
       <td><a href="delete_calculation.php?id=<?=$fetch_rows['id']?>" class="btn btn-danger">Delete</a></td>
     </tr>

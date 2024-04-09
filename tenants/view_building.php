@@ -56,14 +56,15 @@ $data = mysqli_fetch_assoc($calculations_data);
 </div>
     <?php } ?>
     
-  <table class="table table-bordered mx-auto" style="max-width:700px;">
+    <table class="table table-bordered mx-auto" style="max-width:700px;">
   <thead>
   <tr>
-      <th scope="col" colspan="2" style="width:100%;background: #3131a0;color:white;">Energy Efficiency Rating</th>
+      <th scope="col" colspan="3" style="width:100%;background: #3131a0;color:white;">Energy Efficiency Rating</th>
     </tr>
     <tr>
       <th scope="col"></th>
       <th scope="col">Current</th>
+      <th scope="col">Potential</th>
     </tr>
   </thead>
   <tbody>
@@ -73,6 +74,7 @@ $data = mysqli_fetch_assoc($calculations_data);
     <div>A</div>
     </th>
       <td><?php if(intval($data['eer']) >= 92 && intval($data['eer']) <= 100){ echo $data['eer']; } ?></td>
+      <td><?php if(intval($data['potential']) >= 92 && intval($data['potential']) <= 100){ echo $data['potential']; } ?></td>
     </tr>
     <tr>
       <th scope="row" class="d-flex justify-content-between align-items-center" style="width:50%;background: #1eba1e;color:white;">
@@ -80,6 +82,7 @@ $data = mysqli_fetch_assoc($calculations_data);
     <div>B</div>
     </th>
       <td><?php if(intval($data['eer']) >= 81 && intval($data['eer']) <= 91){ echo $data['eer']; } ?></td>
+      <td><?php if(intval($data['potential']) >= 81 && intval($data['potential']) <= 91){ echo $data['potential']; } ?></td>
     </tr>
     <tr>
       <th scope="row" class="d-flex justify-content-between align-items-center" style="width:60%;background: #18e446;color:white;">
@@ -87,6 +90,7 @@ $data = mysqli_fetch_assoc($calculations_data);
     <div>C</div>
     </th>
       <td><?php if(intval($data['eer']) >= 69 && intval($data['eer']) <= 80){ echo $data['eer']; } ?></td>
+      <td><?php if(intval($data['potential']) >= 69 && intval($data['potential']) <= 80){ echo $data['potential']; } ?></td>
     </tr>
     <tr>
       <th scope="row" class="d-flex justify-content-between align-items-center" style="width:70%;background: #e2e210;color:white;">
@@ -94,6 +98,7 @@ $data = mysqli_fetch_assoc($calculations_data);
     <div>D</div>
     </th>
     <td><?php if(intval($data['eer']) >= 55 && intval($data['eer']) <= 68){ echo $data['eer']; } ?></td>
+    <td><?php if(intval($data['potential']) >= 55 && intval($data['potential']) <= 68){ echo $data['potential']; } ?></td>
     </tr>
     
     <tr>
@@ -102,12 +107,14 @@ $data = mysqli_fetch_assoc($calculations_data);
     <div>E</div>
     </th>
       <td><?php if(intval($data['eer']) >= 39 && intval($data['eer']) <= 54){ echo $data['eer']; } ?></td>
+      <td><?php if(intval($data['potential']) >= 39 && intval($data['potential']) <= 54){ echo $data['potential']; } ?></td>
     </tr><tr>
       <th scope="row" class="d-flex justify-content-between align-items-center" style="width:90%;background: #f78524;color:white;">
     <div>(21 - 38%)</div>
     <div>F</div>
     </th>
     <td><?php if(intval($data['eer']) >= 21 && intval($data['eer']) <= 38){ echo $data['eer']; } ?></td>
+    <td><?php if(intval($data['potential']) >= 21 && intval($data['potential']) <= 38){ echo $data['potential']; } ?></td>
     </tr>
 
     <tr>
@@ -116,10 +123,11 @@ $data = mysqli_fetch_assoc($calculations_data);
     <div>G</div>
     </th>
       <td><?php if(intval($data['eer']) >= 1 && intval($data['eer']) <= 20){ echo $data['eer']; } ?></td>
+      <td><?php if(intval($data['potential']) >= 1 && intval($data['potential']) <= 20){ echo $data['potential']; } ?></td>
     </tr>
    
   </tbody>
-  </table> 
+    </table>
     <form method="post">
     <div class="mb-3">
     <label for="name" class="form-label">Name</label>
@@ -138,8 +146,15 @@ $data = mysqli_fetch_assoc($calculations_data);
     <input type="text" name="eer" class="form-control" id="eer"  value="<?=$data['eer']?>" readonly disabled> 
   </div>
   <div class="mb-3">
+    <label for="potential" class="form-label">Potential</label>
+    <input type="text" name="potential" class="form-control" id="potential"  value="<?=$data['potential']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
     <label for="grade" class="form-label">Grade</label>
     <input type="text" name="grade" class="form-control" id="grade"  value="<?=$data['grade']?>" readonly disabled> 
+  </div>
+  <div class="mb-5">
+    <a href="index.php" class="btn btn-dark">Back</a>
   </div>
 
 </form>

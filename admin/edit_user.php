@@ -26,6 +26,7 @@ if (isset($_POST['update_user'])) {
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
     $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
+    $address = mysqli_real_escape_string($conn, $_POST["address"]);
     $password = mysqli_real_escape_string($conn, $_POST["password"]);
     $r_id = $_POST['id'];
     // Phone number validation
@@ -79,7 +80,7 @@ $data = mysqli_fetch_assoc($user_data);
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Update Building</title>
+    <title>Update User</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
@@ -90,7 +91,7 @@ $data = mysqli_fetch_assoc($user_data);
     <?php include("header.php"); ?>
    <div style="max-width: 500px" class=" mx-auto mt-5">
     <div class="d-flex justify-content-between">
-<div><h2>Update Building</h2></div>
+<div><h2>Update User</h2></div>
     </div>
     <?php if($showAlert){ ?>
       <div class="alert alert-success" role="alert">
@@ -119,6 +120,10 @@ $data = mysqli_fetch_assoc($user_data);
   <div class="mb-3">
     <label for="phone" class="form-label">Phone Number</label>
     <input type="text" name="phone" class="form-control" id="phone" value="<?=$data['phone']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" required>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
