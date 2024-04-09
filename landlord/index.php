@@ -15,9 +15,10 @@ if (isset($_POST['add_building'])) {
   $address = mysqli_real_escape_string($conn, $_POST['address']);
   $built_year = mysqli_real_escape_string($conn, $_POST['built_year']);
   $eer = mysqli_real_escape_string($conn, $_POST['eer']);
+  $potential = mysqli_real_escape_string($conn, $_POST['potential']);
   $grade = mysqli_real_escape_string($conn, $_POST['grade']);
 
-  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `address`, `built_year`, `eer`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '$eer', '$grade', current_timestamp())");
+  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `address`, `built_year`, `eer`, `potential`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '$eer', '$potential', '$grade', current_timestamp())");
 
   if($add_building_q){
 $showAlert = 'Building is added successfully!';
@@ -67,6 +68,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
       <th scope="col">Built Year</th>
       <th scope="col">EER</th>
       <th scope="col">Grade</th>
+      <th scope="col">Calculate</th>
       <th scope="col">View</th>
       <th scope="col">Edit</th>
     </tr>
@@ -84,6 +86,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
       <td><?=$fetch_rows['built_year']?></td>
       <td><?=$fetch_rows['eer']?></td>
       <td><?=$fetch_rows['grade']?></td>
+      <td><a href="calculator.php?building_id=<?=$fetch_rows['id']?>" class="btn btn-secondary">Calculate</a></td>
       <td><a href="view_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-dark">View</a></td>
       <td><a href="edit_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-success">Edit</a></td>
     </tr>
@@ -120,6 +123,10 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
   <div class="mb-3">
     <label for="eer" class="form-label">EER</label>
     <input type="text" name="eer" class="form-control" id="eer"  required> 
+  </div>
+  <div class="mb-3">
+    <label for="potential" class="form-label">Potential</label>
+    <input type="text" name="potential" class="form-control" id="potential"  required> 
   </div>
   <div class="mb-3">
     <label for="grade" class="form-label">Grade</label>

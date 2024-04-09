@@ -18,9 +18,7 @@
         <li class="nav-item">
           <a class="nav-link" href="calculations.php">Calculations</a>
 </li>
-        <li class="nav-item">
-          <a class="nav-link" href="calculator.php">Calculator</a>
-</li>
+
         <li class="nav-item">
           <a class="nav-link" href="profile.php">Profile</a>
 </li>

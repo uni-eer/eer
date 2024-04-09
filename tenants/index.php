@@ -9,7 +9,7 @@ if(intval($_SESSION['role']) !== 3){
 }
 
 // fetching 
-$data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
+$data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id order by id desc");
 ?>
 <!doctype html>
 <html lang="en">

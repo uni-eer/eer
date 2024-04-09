@@ -4,7 +4,7 @@ if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
 $user_id = $_SESSION['user_id'];
-if(intval($_SESSION['role']) !== 1){
+if(intval($_SESSION['role']) !== 2){
   header("location: ../logout.php");
 }
 $showError = false;
@@ -51,9 +51,9 @@ $data = mysqli_query($conn, "SELECT * FROM `users` order by id desc");
       <th scope="col">Email</th>
       <th scope="col">Role</th>
       <th scope="col">Regsitered At</th>
+      <th scope="col">Calculate</th>
       <th scope="col">View</th>
       <th scope="col">Edit</th>
-      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -71,9 +71,9 @@ $data = mysqli_query($conn, "SELECT * FROM `users` order by id desc");
       <td><?=$fetch_rows['email']?></td>
       <td><?=$role_get['name']?></td>
       <td><?=date('d M, Y h:i A', strtotime($fetch_rows['created_at']))?></td>
+      <td><a href="calculator.php?user_id=<?=$fetch_rows['id']?>" class="btn btn-secondary">Calculate</a></td>
       <td><a href="view_user.php?id=<?=$fetch_rows['id']?>" class="btn btn-dark">View</a></td>
       <td><a href="edit_user.php?id=<?=$fetch_rows['id']?>" class="btn btn-success">Edit</a></td>
-      <td><a href="delete_user.php?id=<?=$fetch_rows['id']?>" class="btn btn-danger">Delete</a></td>
     </tr>
 <?php
       }
