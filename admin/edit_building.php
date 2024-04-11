@@ -1,7 +1,7 @@
 <?php
 include "../php/db.php";
 
-// Authentication check
+// Check if user is authorised to edit buildings
 if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
@@ -14,6 +14,7 @@ if (!isset($_GET['id'])) {
   }
   exit();
 }
+// Get id from url
 $id = $_GET['id'];
 $user_id = $_SESSION['user_id'];
 $showError = false;

@@ -1,5 +1,5 @@
 <?php include "../php/db.php";
-// Auth
+// Authentication
 if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
@@ -8,7 +8,7 @@ if (intval($_SESSION['role']) !== 1) {
   header("location: ../logout.php");
 }
 
-// fetching 
+// Fetch callback 
 $data = mysqli_query($conn, "SELECT * FROM `callback` order by id desc");
 ?>
 <!doctype html>

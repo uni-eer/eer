@@ -9,13 +9,13 @@ if (intval($_SESSION['role']) !== 1) {
   header("location: ../logout.php");
 }
 if (!isset($_GET['id'])) {
-  if (isset($_SERVER['HTTP_REFERER'])) { // Get prevoius location
+  if (isset($_SERVER['HTTP_REFERER'])) { // Get previous location
     header('Location: ' . $_SERVER['HTTP_REFERER']);
   }
   exit();
 }
-$id = $_GET['id'];
-$user_id = $_SESSION['user_id'];
+$id = $_GET['id']; // Get user id from URL
+$user_id = $_SESSION['user_id']; 
 $showError = false;
 $showAlert = false;
 

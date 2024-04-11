@@ -1,5 +1,5 @@
 <?php include "../php/db.php";
-// Auth
+// Authentication
 if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
@@ -10,10 +10,10 @@ if (intval($_SESSION['role']) !== 1) {
 $showError = false;
 $showAlert = false;
 
-// fetching 
+// Fetch calculations 
 $data = mysqli_query($conn, "SELECT * FROM `calculations` order by id desc");
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>

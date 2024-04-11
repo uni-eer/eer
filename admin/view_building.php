@@ -14,7 +14,7 @@ if (!isset($_GET['id'])) {
   }
   exit();
 }
-$id = $_GET['id'];
+$id = $_GET['id']; // Get user id from URL
 $user_id = $_SESSION['user_id'];
 $showError = false;
 $showAlert = false;

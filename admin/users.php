@@ -4,14 +4,14 @@ if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
 $user_id = $_SESSION['user_id'];
-if (intval($_SESSION['role']) !== 1) {
+if (intval($_SESSION['role']) !== 1) { // Check if user is not admin
   header("location: ../logout.php");
 }
 $showError = false;
 $showAlert = false;
 
-// fetching 
-$data = mysqli_query($conn, "SELECT * FROM `users` order by id desc");
+// Fetching all users from the database 
+$data = mysqli_query($conn, "SELECT * FROM `users` order by id desc"); 
 ?>
 <!doctype html>
 <html lang="en">

@@ -5,7 +5,7 @@ include "../php/db.php";
 if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
-if (intval($_SESSION['role']) !== 1) {
+if (intval($_SESSION['role']) !== 1) { // Check if user is not admin
   header("location: ../logout.php");
 }
 $user_id = $_SESSION['user_id'];

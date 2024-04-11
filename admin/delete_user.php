@@ -4,10 +4,10 @@ if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $user_id = $_SESSION['user_id'];
     if (isset($_SESSION['auth'])) {
-        if (intval($_SESSION['role']) === 1) { // Only Admin
+        if (intval($_SESSION['role']) === 1) { // Check user is admin
             $find_calcualtion = mysqli_query($conn, "SELECT * FROM `users` WHERE id=$id");
             if (mysqli_num_rows($find_calcualtion) > 0) {
-                mysqli_query($conn, "DELETE FROM `users` WHERE id=$id");
+                mysqli_query($conn, "DELETE FROM `users` WHERE id=$id"); // If exists than delete
                 if (isset($_SERVER['HTTP_REFERER'])) { // Get prevoius location
                     header('Location: ' . $_SERVER['HTTP_REFERER'] . '?m=Deleted Successfully!');
                 }

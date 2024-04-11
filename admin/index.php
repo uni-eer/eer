@@ -9,7 +9,7 @@ if (intval($_SESSION['role']) !== 1) {
 }
 $showError = false;
 $showAlert = false;
-// Adding
+// Adding a building
 if (isset($_POST['add_building'])) {
   $name = mysqli_real_escape_string($conn, $_POST['name']);
   $address = mysqli_real_escape_string($conn, $_POST['address']);
@@ -27,7 +27,7 @@ if (isset($_POST['add_building'])) {
   }
 }
 
-// fetching 
+// Fetching all buildings from the database 
 $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
 ?>
 <!doctype html>

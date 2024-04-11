@@ -14,14 +14,12 @@ if (!isset($_GET['id'])) {
   }
   exit();
 }
-$id = $_GET['id'];
+$id = $_GET['id']; // Get user id from URL
 $user_id = $_SESSION['user_id'];
 $showError = false;
 $showAlert = false;
 
-
-
-$user_data = mysqli_query($conn, "SELECT * FROM `users` WHERE `id`=$id");
+$user_data = mysqli_query($conn, "SELECT * FROM `users` WHERE `id`=$id"); // Fetch user data
 if (mysqli_num_rows($user_data) === 0) {
   if (isset($_SERVER['HTTP_REFERER'])) { // Get prevoius location
     header('Location: ' . $_SERVER['HTTP_REFERER']);
