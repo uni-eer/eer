@@ -22,13 +22,13 @@ $showAlert = false;
 // Updating Profile
 if (isset($_POST['update_building'])) {
         $name = mysqli_real_escape_string($conn, $_POST['name']);
-        $address = mysqli_real_escape_string($conn, $_POST['address']);
+        $address = mysqli_real_escape_string($conn, $_POST['BuildingAddress']);
         $built_year = mysqli_real_escape_string($conn, $_POST['built_year']);
         $eer = mysqli_real_escape_string($conn, $_POST['eer']);
         $potential = mysqli_real_escape_string($conn, $_POST['potential']);
         $grade = mysqli_real_escape_string($conn, $_POST['grade']);
         $r_id = $_POST['id'];
-        $update = mysqli_query($conn, "UPDATE `building` SET `name`='$name',`address`='$address',`built_year`='$built_year',`eer`='$eer',`potential`='$potential',`grade`='$grade' WHERE `id`=$r_id");
+        $update = mysqli_query($conn, "UPDATE `building` SET `name`='$name',`BuildingAddress`='$address',`built_year`='$built_year',`eer`='$eer',`potential`='$potential',`grade`='$grade' WHERE `id`=$r_id");
 
         if($update){
             $showAlert = 'Building is updated successfully!';
@@ -81,7 +81,7 @@ $data = mysqli_fetch_assoc($calculations_data);
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" required>
+    <input type="text" name="BuildingAddress" class="form-control" id="BuildingAddress" value="<?=$data['BuildingAddress']?>" required>
   </div>
   <input type="hidden" name="id" value="<?=$data['id']?>">
   <div class="mb-3">

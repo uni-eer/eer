@@ -137,7 +137,7 @@ $calculations_data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `us
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" readonly disabled>
+    <input type="text" name="BuildingAddress" class="form-control" id="BuildingAddress" value="<?=$data['BuildingAddress']?>" readonly disabled>
   </div>
   <div class="mb-3">
     <label for="built_year" class="form-label">Built Year</label>

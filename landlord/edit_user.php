@@ -123,7 +123,7 @@ $data = mysqli_fetch_assoc($user_data);
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" required>
+    <input type="text" name="address" class="form-control" id="address" value="<?=$data['UserAddress']?>" required>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>

@@ -79,7 +79,7 @@ $role_get = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `roles` WHERE 
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" readonly disabled>
+    <input type="text" name="address" class="form-control" id="address" value="<?=$data['UserAddress']?>" readonly disabled>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>

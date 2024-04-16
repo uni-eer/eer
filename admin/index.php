@@ -86,7 +86,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
       <th scope="row"><?=$sno?></th>
       <td><?=$user_get['email']?></td>
       <td><?=$fetch_rows['name']?></td>
-      <td><?=$fetch_rows['address']?></td>
+      <td><?=$fetch_rows['BuildingAddress']?></td>
       <td><?=$fetch_rows['built_year']?></td>
       <td><?=$fetch_rows['eer']?></td>
       <td><?=$fetch_rows['grade']?></td>

@@ -8,8 +8,16 @@ if(intval($_SESSION['role']) !== 3){
   header("location: ../logout.php");
 }
 
+$TenantAddressQuery = mysqli_query($conn, "SELECT UserAddress FROM users WHERE id = $user_id");
+
+While($TenantAddress = mysqli_fetch_assoc($TenantAddressQuery)) {
+  $_SESSION['UserAddress'] = $TenantAddress['UserAddress'];
+  $address = $_SESSION['UserAddress'];
+}
+
+
 // fetching 
-$data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id order by id desc");
+$data = mysqli_query($conn, "SELECT * FROM `building` WHERE BuildingAddress = '$address' order by id desc");
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,7 +35,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
     <?php include("header.php"); ?>
    <div class="container mx-auto mt-5">
     <div class="d-flex justify-content-between">
-<div><h2>Buildings</h2></div>
+<div><h2>Tenancy</h2></div>
     </div>
 
    <table class="table table-bordered table-striped table-hover" id="myTable">
@@ -51,7 +59,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
     <tr>
       <th scope="row"><?=$sno?></th>
       <td><?=$fetch_rows['name']?></td>
-      <td><?=$fetch_rows['address']?></td>
+      <td><?=$fetch_rows['BuildingAddress']?></td>
       <td><?=$fetch_rows['built_year']?></td>
       <td><?=$fetch_rows['eer']?></td>
       <td><?=$fetch_rows['grade']?></td>
