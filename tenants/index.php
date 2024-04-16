@@ -45,6 +45,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE BuildingAddress = '$
       <th scope="col">Building name</th>
       <th scope="col">address</th>
       <th scope="col">Built Year</th>
+      <th scope="col">Building Type</th>
       <th scope="col">EER</th>
       <th scope="col">Grade</th>
       <th scope="col">View</th>
@@ -61,6 +62,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE BuildingAddress = '$
       <td><?=$fetch_rows['name']?></td>
       <td><?=$fetch_rows['BuildingAddress']?></td>
       <td><?=$fetch_rows['built_year']?></td>
+      <td><?=$fetch_rows['Building_Type']?></td>
       <td><?=$fetch_rows['eer']?></td>
       <td><?=$fetch_rows['grade']?></td>
       <td><a href="view_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-dark">View</a></td>

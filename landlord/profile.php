@@ -108,10 +108,6 @@ $data = mysqli_fetch_assoc($logged_data);
     <input type="text" name="phone" class="form-control" id="phone" value="<?=$data['phone']?>" required>
   </div>
   <div class="mb-3">
-    <label for="address" class="form-label">Address</label>
-    <input type="text" name="UserAddress" class="form-control" id="UserAddress" value="<?=$data['UserAddress']?>" required>
-  </div>
-  <div class="mb-3">
     <label for="email" class="form-label">Email</label>
     <input type="text" name="email" class="form-control" id="email" value="<?=$data['email']?>" required>
   </div>

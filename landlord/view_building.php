@@ -144,6 +144,10 @@ $calculations_data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `us
     <input type="date" name="built_year" class="form-control" id="built_year"  value="<?=$data['built_year']?>" readonly disabled> 
   </div>
   <div class="mb-3">
+    <label for="Building_Type" class="form-label">Building Type</label>
+    <input type="text" name="Building_Type" class="form-control" id="Building_Type"  value="<?=$data['Building_Type']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
     <label for="eer" class="form-label">EER</label>
     <input type="text" name="eer" class="form-control" id="eer"  value="<?=$data['eer']?>" readonly disabled> 
   </div>

@@ -25,10 +25,11 @@ if (isset($_POST['update_building'])) {
         $address = mysqli_real_escape_string($conn, $_POST['BuildingAddress']);
         $built_year = mysqli_real_escape_string($conn, $_POST['built_year']);
         $eer = mysqli_real_escape_string($conn, $_POST['eer']);
+        $Building_Type = mysqli_real_escape_string($conn, $_POST['Building_Type']);
         $potential = mysqli_real_escape_string($conn, $_POST['potential']);
         $grade = mysqli_real_escape_string($conn, $_POST['grade']);
         $r_id = $_POST['id'];
-        $update = mysqli_query($conn, "UPDATE `building` SET `name`='$name',`BuildingAddress`='$address',`built_year`='$built_year',`eer`='$eer',`potential`='$potential',`grade`='$grade' WHERE `id`=$r_id");
+        $update = mysqli_query($conn, "UPDATE `building` SET `name`='$name',`BuildingAddress`='$address',`built_year`='$built_year', `Building_Type` = '$Building_Type', `eer`='$eer',`potential`='$potential',`grade`='$grade' WHERE `id`=$r_id");
 
         if($update){
             $showAlert = 'Building is updated successfully!';
@@ -88,6 +89,17 @@ $data = mysqli_fetch_assoc($calculations_data);
     <label for="built_year" class="form-label">Built Year</label>
     <input type="date" name="built_year" class="form-control" id="built_year"  value="<?=$data['built_year']?>" required> 
   </div>
+  <label for="Building_Type" class="form-label">Building Type</label>
+  <div class="mb-3">
+  <select id="Building_Type" name="Building_Type" class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+      <option value="Bungalow">Bungalow</option>
+        <option value="Flat">Flat</option>
+        <option value="House">House</option>
+        <option value="Maisonette">Maisonette</option>
+        <option value="Park Home">Park Home</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
   <div class="mb-3">
     <label for="eer" class="form-label">EER</label>
     <input type="text" name="eer" class="form-control" id="eer"  value="<?=$data['eer']?>" required> 

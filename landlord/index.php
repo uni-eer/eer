@@ -14,9 +14,10 @@ if (isset($_POST['add_building'])) {
   $name = mysqli_real_escape_string($conn, $_POST['name']);
   $address = mysqli_real_escape_string($conn, $_POST['address']);
   $built_year = mysqli_real_escape_string($conn, $_POST['built_year']);
+  $Building_Type = mysqli_real_escape_string($conn, $_POST['Building_Type']);
 
   //insert building information
-  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `BuildingAddress`, `built_year`, `eer`, `potential`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '0', '0', 'N/A', current_timestamp())");
+  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `BuildingAddress`, `built_year`, `Building_Type`, `eer`, `potential`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '$Building_Type', '0', '0', 'N/A', current_timestamp())");
 
   if($add_building_q){
 $showAlert = 'Building is added successfully!';
@@ -64,6 +65,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
       <th scope="col">Building name</th>
       <th scope="col">address</th>
       <th scope="col">Built Year</th>
+      <th scope="col">Building Type</th>
       <th scope="col">EER</th>
       <th scope="col">Grade</th>
       <th scope="col">Calculate</th>
@@ -82,6 +84,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
       <td><?=$fetch_rows['name']?></td>
       <td><?=$fetch_rows['BuildingAddress']?></td>
       <td><?=$fetch_rows['built_year']?></td>
+      <td><?=$fetch_rows['Building_Type']?></td>
       <td><?=$fetch_rows['eer']?></td>
       <td><?=$fetch_rows['grade']?></td>
       <td><a href="calculator.php?building_id=<?=$fetch_rows['id']?>" class="btn btn-secondary">Calculate</a></td>
@@ -118,7 +121,19 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
     <label for="built_year" class="form-label">Built Year</label>
     <input type="date" name="built_year" class="form-control" id="built_year"  required> 
   </div>
- 
+  <div class="mb-3">
+      <label for="Building_Type" class="block text-sm font-medium leading-6 text-gray-900">Building Type</label>
+        <div class="mt-2">
+      <select id="Building_Type" name="Building_Type" class="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+        <option value="Bungalow">Bungalow</option>
+        <option value="Flat">Flat</option>
+        <option value="House">House</option>
+        <option value="Maisonette">Maisonette</option>
+        <option value="Park Home">Park Home</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+  </div> 
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
