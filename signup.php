@@ -42,7 +42,7 @@ if (isset($_POST['signup_btn'])) {
         $user_data = mysqli_query($conn, "SELECT * FROM `users` WHERE `email`='$email'");
         $fetch_user = mysqli_fetch_assoc($user_data);
         $user_id = $fetch_user['id'];
-        $_SESSION['username'] = $username;
+        $_SESSION['username'] = $username; //sets registration data as session data
         $_SESSION['email'] = $email;
         $_SESSION['auth'] = true;
         $_SESSION['role'] = $role_id;
