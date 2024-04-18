@@ -8,8 +8,16 @@ if (intval($_SESSION['role']) !== 3) {
   header("location: ../logout.php");
 }
 
+$TenantAddressQuery = mysqli_query($conn, "SELECT UserAddress FROM users WHERE id = $user_id");
+
+While($TenantAddress = mysqli_fetch_assoc($TenantAddressQuery)) {
+  $_SESSION['UserAddress'] = $TenantAddress['UserAddress'];
+  $address = $_SESSION['UserAddress'];
+}
+
+
 // fetching 
-$data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id order by id desc");
+$data = mysqli_query($conn, "SELECT * FROM `building` WHERE BuildingAddress = '$address' order by id desc");
 ?>
 <!doctype html>
 <html lang="en">
@@ -29,6 +37,7 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
   <?php include("header.php"); ?>
   <div class="container mx-auto mt-5">
     <div class="d-flex justify-content-between">
+<<<<<<< HEAD
       <div>
         <h2>Buildings</h2>
       </div>
@@ -64,6 +73,43 @@ $data = mysqli_query($conn, "SELECT * FROM `building` WHERE `user_id`=$user_id o
         <?php
           }
         } ?>
+=======
+<div><h2>Tenancy</h2></div>
+    </div>
+
+   <table class="table table-bordered table-striped table-hover" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Building name</th>
+      <th scope="col">address</th>
+      <th scope="col">Built Year</th>
+      <th scope="col">Building Type</th>
+      <th scope="col">EER</th>
+      <th scope="col">Grade</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if(mysqli_num_rows($data)>0){
+      $sno = 0;
+      while($fetch_rows = mysqli_fetch_assoc($data)){
+        $sno++;
+?>
+    <tr>
+      <th scope="row"><?=$sno?></th>
+      <td><?=$fetch_rows['name']?></td>
+      <td><?=$fetch_rows['BuildingAddress']?></td>
+      <td><?=$fetch_rows['built_year']?></td>
+      <td><?=$fetch_rows['Building_Type']?></td>
+      <td><?=$fetch_rows['eer']?></td>
+      <td><?=$fetch_rows['grade']?></td>
+      <td><a href="view_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-dark">View</a></td>
+    </tr>
+<?php
+      }
+    } ?>
+>>>>>>> origin/main
 
       </tbody>
     </table>

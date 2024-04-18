@@ -18,6 +18,10 @@ if (isset($_GET['building_id'])) {
 } else {
   $building_id = NULL;
 }
+
+  if(!($_GET['building_id'])) {
+    header("location: index.php");
+  }
 $showError = false;
 $showAlert = false;
 
@@ -36,9 +40,9 @@ if (isset($_POST['calculate'])) {
   } else if (!is_numeric($tfa)) {
     $showError = 'Total Floor Area must be numeric!';
   } {
-    $ECD = 0.42;
+    $ECD = 0.21;
     $TEC = $lc + $hc + $hwc;
-    $TEC_per_TFA = $TEC / $tfa;
+    $TEC_per_TFA = $ECD * ($TEC / ($tfa + 45));
 
     if ($TEC_per_TFA < 3.5) {
       $EER = 100 - 13.95 * $TEC_per_TFA;
@@ -46,30 +50,31 @@ if (isset($_POST['calculate'])) {
       $EER = 117 - 121 * log10($TEC_per_TFA);
     }
 
-    $rating_band = "";
-    if ($EER >= 92) {
-      $rating_band = "A";
-    } elseif ($EER >= 81) {
-      $rating_band = "B";
-    } elseif ($EER >= 69) {
-      $rating_band = "C";
-    } elseif ($EER >= 55) {
-      $rating_band = "D";
-    } elseif ($EER >= 39) {
-      $rating_band = "E";
-    } elseif ($EER >= 21) {
-      $rating_band = "F";
-    } else {
-      $rating_band = "G";
+      $rating_band = "";
+if ($EER >= 92) {
+    $rating_band = "A";
+} elseif ($EER >= 81) {
+    $rating_band = "B";
+} elseif ($EER >= 69) {
+    $rating_band = "C";
+} elseif ($EER >= 55) {
+    $rating_band = "D";
+} elseif ($EER >= 39) {
+    $rating_band = "E";
+} elseif ($EER >= 21) {
+    $rating_band = "F";
+} else {
+    $rating_band = "G";
+}
+$EER = round($EER,2);
+$showAlert = "EER = ". $EER . " and Rating Band is ". $rating_band;
+if($building_id !== NULL){
+  $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`,`building_id`, `lc`, `hc`, `hwc`, `tfa`,`rating_band`,`eer`, `created_at`) VALUES ($user_id,$building_id, '$lc', '$hc','$hwc', '$tfa', '$rating_band','$EER', current_timestamp())");
+}else{
+  $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`, `lc`, `hc`, `hwc`, `tfa`,`rating_band`,`eer`, `created_at`) VALUES ($user_id,'$lc', '$hc','$hwc', '$tfa', '$rating_band','$EER', current_timestamp())");
+}
+              
     }
-    $EER = round($EER, 2);
-    $showAlert = "EER = " . $EER . " and Rating Band is " . $rating_band;
-    if ($building_id !== NULL) {
-      $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`,`building_id`, `lc`, `hc`, `hwc`, `tfa`,`rating_band`,`eer`, `created_at`) VALUES ($user_id,$building_id, '$lc', '$hc','$hwc', '$tfa', '$rating_band','$EER', current_timestamp())");
-    } else {
-      $save_data = mysqli_query($conn, "INSERT INTO `calculations`(`user_id`, `lc`, `hc`, `hwc`, `tfa`,`rating_band`,`eer`, `created_at`) VALUES ($user_id,'$lc', '$hc','$hwc', '$tfa', '$rating_band','$EER', current_timestamp())");
-    }
-  }
 }
 
 ?>

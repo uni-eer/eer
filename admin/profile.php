@@ -14,13 +14,13 @@ $showAlert = false;
 
 // Updating Profile
 if (isset($_POST['update_profile'])) {
-  $fname = mysqli_real_escape_string($conn, $_POST["fname"]);
-  $lname = mysqli_real_escape_string($conn, $_POST["lname"]);
-  $email = mysqli_real_escape_string($conn, $_POST["email"]);
-  $username = mysqli_real_escape_string($conn, $_POST["username"]);
-  $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
-  $address = mysqli_real_escape_string($conn, $_POST["address"]);
-  $password = mysqli_real_escape_string($conn, $_POST["password"]);
+    $fname = mysqli_real_escape_string($conn, $_POST["fname"]);
+    $lname = mysqli_real_escape_string($conn, $_POST["lname"]);
+    $email = mysqli_real_escape_string($conn, $_POST["email"]);
+    $username = mysqli_real_escape_string($conn, $_POST["username"]);
+    $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
+    $address = mysqli_real_escape_string($conn, $_POST["UserAddress"]);
+    $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
   // Phone number validation
   if (!is_numeric($phone)) {
@@ -35,15 +35,18 @@ if (isset($_POST['update_profile'])) {
       // Update Email
       mysqli_query($conn, "UPDATE `users` SET `email` = '$email' WHERE `id` = $user_id");
 
-      // Validate Username - if already exists
-      $username_query = "SELECT * FROM `users` WHERE `username` = '$username' AND `id` != $user_id";
-      $username_result = mysqli_query($conn, $username_query);
-      if (mysqli_num_rows($username_result) > 0) {
-        $showError = 'Username already exists!';
-      } else {
-        // Update Username
-        mysqli_query($conn, "UPDATE `users` SET `username` = '$username' WHERE `id` = $user_id");
-      }
+            // Validate Username - if already exists
+            $username_query = "SELECT * FROM `users` WHERE `username` = '$username' AND `id` != $user_id";
+            $username_result = mysqli_query($conn, $username_query);
+            if (mysqli_num_rows($username_result) > 0) {
+                $showError = 'Username already exists!';
+            } else {
+                // Update Username
+                mysqli_query($conn, "UPDATE `users` SET `username` = '$username' WHERE `id` = $user_id");
+            }
+            
+            // Update name and phone
+            mysqli_query($conn, "UPDATE `users` SET `fname` = '$fname', `lname` = '$lname', `phone` = '$phone', `UserAddress` = '$address' WHERE `id` = $user_id");
 
       // Update name and phone
       mysqli_query($conn, "UPDATE `users` SET `fname` = '$fname', `lname` = '$lname', `phone` = '$phone', `address` = '$address' WHERE `id` = $user_id");
@@ -126,5 +129,31 @@ $data = mysqli_fetch_assoc($logged_data);
       <button type="submit" name="update_profile" class="btn btn-primary">Update</button>
     </form>
   </div>
+<<<<<<< HEAD
+=======
+  <div class="mb-3">
+    <label for="lname" class="form-label">Last name</label>
+    <input type="text" name="lname" class="form-control" id="lname" value="<?=$data['lname']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="username" class="form-label">User name</label>
+    <input type="text" name="username" class="form-control" id="username" value="<?=$data['username']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="phone" class="form-label">Phone Number</label>
+    <input type="text" name="phone" class="form-control" id="phone" value="<?=$data['phone']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" name="email" class="form-control" id="email" value="<?=$data['email']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="password">
+  </div>
+  <button type="submit" name="update_profile" class="btn btn-primary">Update</button>
+</form>
+   </div>
+>>>>>>> origin/main
 
   <?php include("footer.php"); ?>

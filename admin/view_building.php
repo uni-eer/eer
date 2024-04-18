@@ -165,6 +165,7 @@ $data = mysqli_fetch_assoc($calculations_data);
       </tbody>
     </table>
     <form method="post">
+<<<<<<< HEAD
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" name="name" class="form-control" id="name" value="<?= $data['name'] ?>" readonly disabled>
@@ -195,6 +196,35 @@ $data = mysqli_fetch_assoc($calculations_data);
       </div>
 
     </form>
+=======
+    <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" id="name" value="<?=$data['name']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" name="BuildingAddress" class="form-control" id="BuildingAddress" value="<?=$data['BuildingAddress']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="built_year" class="form-label">Built Year</label>
+    <input type="date" name="built_year" class="form-control" id="built_year"  value="<?=$data['built_year']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
+    <label for="eer" class="form-label">Building Type</label>
+    <input type="text" name="Building Type" class="form-control" id="Building Type"  value="<?=$data['Building_Type']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
+    <label for="eer" class="form-label">EER</label>
+    <input type="text" name="eer" class="form-control" id="eer"  value="<?=$data['eer']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
+    <label for="potential" class="form-label">Potential</label>
+    <input type="text" name="potential" class="form-control" id="potential"  value="<?=$data['potential']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
+    <label for="grade" class="form-label">Grade</label>
+    <input type="text" name="grade" class="form-control" id="grade"  value="<?=$data['grade']?>" readonly disabled> 
+>>>>>>> origin/main
   </div>
 
   <?php include("footer.php"); ?>

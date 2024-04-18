@@ -97,5 +97,39 @@ $role_get = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `roles` WHERE 
       </div>
     </form>
   </div>
+<<<<<<< HEAD
+=======
+  <div class="mb-3">
+    <label for="lname" class="form-label">Last name</label>
+    <input type="text" name="lname" class="form-control" id="lname" value="<?=$data['lname']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="username" class="form-label">User name</label>
+    <input type="text" name="username" class="form-control" id="username" value="<?=$data['username']?>" readonly disabled>
+  </div>
+  <input type="hidden" name="id" value="<?=$data['id']?>">
+  <div class="mb-3">
+    <label for="phone" class="form-label">Phone Number</label>
+    <input type="text" name="phone" class="form-control" id="phone" value="<?=$data['phone']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" name="UserAddress" class="form-control" id="UserAddress" value="<?=$data['UserAddress']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" name="email" class="form-control" id="email" value="<?=$data['email']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="role" class="form-label">Role</label>
+    <input type="text" name="role" class="form-control" id="role" value="<?=$role_get['name']?>" readonly disabled>
+  </div>
+  <div class="mb-3">
+    <label for="registered_at" class="form-label">Registered At</label>
+    <input type="text" name="registered_at" class="form-control" id="registered_at" value="<?=date('d M, Y h:i A', strtotime($data['created_at']))?>" readonly disabled>
+  </div>
+</form>
+   </div>
+>>>>>>> origin/main
 
   <?php include("footer.php"); ?>

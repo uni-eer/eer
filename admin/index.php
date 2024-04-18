@@ -9,23 +9,6 @@ if (intval($_SESSION['role']) !== 1) {
 }
 $showError = false;
 $showAlert = false;
-// Adding a building
-if (isset($_POST['add_building'])) {
-  $name = mysqli_real_escape_string($conn, $_POST['name']);
-  $address = mysqli_real_escape_string($conn, $_POST['address']);
-  $built_year = mysqli_real_escape_string($conn, $_POST['built_year']);
-  $eer = mysqli_real_escape_string($conn, $_POST['eer']);
-  $potential = mysqli_real_escape_string($conn, $_POST['potential']);
-  $grade = mysqli_real_escape_string($conn, $_POST['grade']);
-
-  $add_building_q = mysqli_query($conn, "INSERT INTO `building`(`user_id`, `name`, `address`, `built_year`, `eer`, `potential`, `grade`, `created_at`) VALUES ($user_id, '$name', '$address', '$built_year', '$eer', '$potential', '$grade', current_timestamp())");
-
-  if ($add_building_q) {
-    $showAlert = 'Building is added successfully!';
-  } else {
-    $showError = "Building couldn't be added! Server error";
-  }
-}
 
 // Fetching all buildings from the database 
 $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
@@ -48,107 +31,90 @@ $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
   <?php include("header.php"); ?>
   <div class="container mx-auto mt-5">
     <div class="d-flex justify-content-between">
-      <div>
-        <h2>Buildings</h2>
-      </div>
-      <div><button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn btn-primary">Add Building</button></div>
+<div><h2>Buildings</h2></div>
     </div>
     <?php if ($showAlert) { ?>
       <div class="alert alert-success" role="alert">
         <?= $showAlert ?>
       </div>
     <?php } ?>
-    <?php if ($showError) { ?>
-      <div class="alert alert-danger" role="alert">
-        <?= $showError ?>
-      </div>
-    <?php } ?>
-    <table class="table table-bordered table-striped table-hover" id="myTable">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">User Email</th>
-          <th scope="col">Building name</th>
-          <th scope="col">address</th>
-          <th scope="col">Built Year</th>
-          <th scope="col">EER</th>
-          <th scope="col">Grade</th>
-          <th scope="col">Created At</th>
-          <th scope="col">View</th>
-          <th scope="col">Edit</th>
-          <th scope="col">Delete</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (mysqli_num_rows($data) > 0) {
-          $sno = 0;
-          while ($fetch_rows = mysqli_fetch_assoc($data)) {
-            $sno++;
-            $user_get = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `id`=$fetch_rows[user_id]"));
-        ?>
-            <tr>
-              <th scope="row"><?= $sno ?></th>
-              <td><?= $user_get['email'] ?></td>
-              <td><?= $fetch_rows['name'] ?></td>
-              <td><?= $fetch_rows['address'] ?></td>
-              <td><?= $fetch_rows['built_year'] ?></td>
-              <td><?= $fetch_rows['eer'] ?></td>
-              <td><?= $fetch_rows['grade'] ?></td>
-              <td><?= date('d M, Y h:i A', strtotime($fetch_rows['created_at'])) ?></td>
-              <td><a href="view_building.php?id=<?= $fetch_rows['id'] ?>" class="btn btn-dark">View</a></td>
-              <td><a href="edit_building.php?id=<?= $fetch_rows['id'] ?>" class="btn btn-success">Edit</a></td>
-              <td><a href="delete_building.php?id=<?= $fetch_rows['id'] ?>" class="btn btn-danger">Delete</a></td>
-            </tr>
-        <?php
-          }
-        } ?>
+   <table class="table table-bordered table-striped table-hover" id="myTable">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">User Email</th>
+      <th scope="col">Building name</th>
+      <th scope="col">address</th>
+      <th scope="col">Built Year</th>
+      <th scope="col">Building Type</th>
+      <th scope="col">EER</th>
+      <th scope="col">Grade</th>
+      <th scope="col">Created At</th>
+      <th scope="col">View</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php if(mysqli_num_rows($data)>0){
+      $sno = 0;
+      while($fetch_rows = mysqli_fetch_assoc($data)){
+        $sno++;
+        $user_get = mysqli_fetch_assoc(mysqli_query($conn, "SELECT * FROM `users` WHERE `id`=$fetch_rows[user_id]"));
+?>
+    <tr>
+      <th scope="row"><?=$sno?></th>
+      <td><?=$user_get['email']?></td>
+      <td><?=$fetch_rows['name']?></td>
+      <td><?=$fetch_rows['BuildingAddress']?></td>
+      <td><?=$fetch_rows['built_year']?></td>
+      <td><?=$fetch_rows['Building_Type']?></td>
+      <td><?=$fetch_rows['eer']?></td>
+      <td><?=$fetch_rows['grade']?></td>
+      <td><?=date('d M, Y h:i A', strtotime($fetch_rows['created_at']))?></td>
+      <td><a href="view_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-dark">View</a></td>
+      <td><a href="edit_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-success">Edit</a></td>
+      <td><a href="delete_building.php?id=<?=$fetch_rows['id']?>" class="btn btn-danger">Delete</a></td>
+    </tr>
+<?php
+      }
+    } ?>
 
-      </tbody>
-    </table>
+  </tbody>
+</table>
 
 
 
-    <!-- Add building modal -->
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <form action="" method="post">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Building</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input type="text" name="name" class="form-control" id="name" required>
-              </div>
-              <div class="mb-3">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" name="address" class="form-control" id="address" required>
-              </div>
-              <div class="mb-3">
-                <label for="built_year" class="form-label">Built Year</label>
-                <input type="date" name="built_year" class="form-control" id="built_year" required>
-              </div>
-              <div class="mb-3">
-                <label for="eer" class="form-label">EER</label>
-                <input type="text" name="eer" class="form-control" id="eer" required>
-              </div>
-              <div class="mb-3">
-                <label for="potential" class="form-label">Potential</label>
-                <input type="text" name="potential" class="form-control" id="potential" required>
-              </div>
-              <div class="mb-3">
-                <label for="grade" class="form-label">Grade</label>
-                <input type="text" name="grade" class="form-control" id="grade" required>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" name="add_building" class="btn btn-primary">Add</button>
-            </div>
-          </form>
-        </div>
+   <!-- Add building modal -->
+   <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="" method="post">
+      <div class="modal-body">
+      <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input type="text" name="name" class="form-control" id="name" required>
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" name="address" class="form-control" id="address" required>
+  </div>
+  <div class="mb-3">
+    <label for="built_year" class="form-label">Built Year</label>
+    <input type="date" name="built_year" class="form-control" id="built_year"  required> 
+  </div>
+  <div class="mb-3">
+    <label for="eer" class="form-label">EER</label>
+    <input type="text" name="eer" class="form-control" id="eer"  required> 
+  </div>
+  <div class="mb-3">
+    <label for="potential" class="form-label">Potential</label>
+    <input type="text" name="potential" class="form-control" id="potential"  required> 
+  </div>
+  <div class="mb-3">
+    <label for="grade" class="form-label">Grade</label>
+    <input type="text" name="grade" class="form-control" id="grade"  required> 
+  </div>
       </div>
     </div>
 

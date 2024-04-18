@@ -26,7 +26,7 @@ if (isset($_POST['update_user'])) {
   $email = mysqli_real_escape_string($conn, $_POST["email"]);
   $username = mysqli_real_escape_string($conn, $_POST["username"]);
   $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
-  $address = mysqli_real_escape_string($conn, $_POST["address"]);
+  $address = mysqli_real_escape_string($conn, $_POST["UserAddress"]);
   $password = mysqli_real_escape_string($conn, $_POST["password"]);
   $r_id = $_POST['id'];
   // Phone number validation
@@ -108,37 +108,37 @@ $data = mysqli_fetch_assoc($user_data);
       </div>
     <?php } ?>
     <form method="post">
-      <div class="mb-3">
-        <label for="fname" class="form-label">First name</label>
-        <input type="text" name="fname" class="form-control" id="fname" value="<?= $data['fname'] ?>" required>
-      </div>
-      <div class="mb-3">
-        <label for="lname" class="form-label">Last name</label>
-        <input type="text" name="lname" class="form-control" id="lname" value="<?= $data['lname'] ?>" required>
-      </div>
-      <div class="mb-3">
-        <label for="username" class="form-label">User name</label>
-        <input type="text" name="username" class="form-control" id="username" value="<?= $data['username'] ?>" required>
-      </div>
-      <input type="hidden" name="id" value="<?= $data['id'] ?>">
-      <div class="mb-3">
-        <label for="phone" class="form-label">Phone Number</label>
-        <input type="text" name="phone" class="form-control" id="phone" value="<?= $data['phone'] ?>" required>
-      </div>
-      <div class="mb-3">
-        <label for="address" class="form-label">Address</label>
-        <input type="text" name="address" class="form-control" id="address" value="<?= $data['address'] ?>" required>
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="text" name="email" class="form-control" id="email" value="<?= $data['email'] ?>" required>
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" class="form-control" id="password">
-      </div>
-      <button type="submit" name="update_user" class="btn btn-primary">Update</button>
-    </form>
+  <div class="mb-3">
+    <label for="fname" class="form-label">First name</label>
+    <input type="text" name="fname" class="form-control" id="fname" value="<?=$data['fname']?>" required>
   </div>
+  <div class="mb-3">
+    <label for="lname" class="form-label">Last name</label>
+    <input type="text" name="lname" class="form-control" id="lname" value="<?=$data['lname']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="username" class="form-label">User name</label>
+    <input type="text" name="username" class="form-control" id="username" value="<?=$data['username']?>" required>
+  </div>
+  <input type="hidden" name="id" value="<?=$data['id']?>">
+  <div class="mb-3">
+    <label for="phone" class="form-label">Phone Number</label>
+    <input type="text" name="phone" class="form-control" id="phone" value="<?=$data['phone']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="address" class="form-label">Address</label>
+    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="email" class="form-label">Email</label>
+    <input type="text" name="email" class="form-control" id="email" value="<?=$data['email']?>" required>
+  </div>
+  <div class="mb-3">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="password">
+  </div>
+  <button type="submit" name="update_user" class="btn btn-primary">Update</button>
+</form>
+   </div>
 
   <?php include("footer.php"); ?>
