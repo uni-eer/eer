@@ -135,11 +135,15 @@ $data = mysqli_fetch_assoc($calculations_data);
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" readonly disabled>
+    <input type="text" name="BuildingAddress" class="form-control" id="BuildingAddress" value="<?=$data['BuildingAddress']?>" readonly disabled>
   </div>
   <div class="mb-3">
     <label for="built_year" class="form-label">Built Year</label>
     <input type="date" name="built_year" class="form-control" id="built_year"  value="<?=$data['built_year']?>" readonly disabled> 
+  </div>
+  <div class="mb-3">
+    <label for="Building_Type" class="form-label">Building Type</label>
+    <input type="text" name="Building_Type" class="form-control" id="Building_Type"  value="<?=$data['Building_Type']?>" readonly disabled> 
   </div>
   <div class="mb-3">
     <label for="eer" class="form-label">EER</label>

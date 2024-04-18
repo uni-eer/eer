@@ -26,7 +26,7 @@ if (isset($_POST['update_user'])) {
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
     $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
-    $address = mysqli_real_escape_string($conn, $_POST["address"]);
+    $address = mysqli_real_escape_string($conn, $_POST["UserAddress"]);
     $password = mysqli_real_escape_string($conn, $_POST["password"]);
     $r_id = $_POST['id'];
     // Phone number validation
@@ -123,7 +123,7 @@ $data = mysqli_fetch_assoc($user_data);
   </div>
   <div class="mb-3">
     <label for="address" class="form-label">Address</label>
-    <input type="text" name="address" class="form-control" id="address" value="<?=$data['address']?>" required>
+    <input type="text" name="UserAddress" class="form-control" id="UserAddress" value="<?=$data['UserAddress']?>" required>
   </div>
   <div class="mb-3">
     <label for="email" class="form-label">Email</label>
