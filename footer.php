@@ -25,6 +25,7 @@
 </footer>
 
 
-    <script src="js/flowbite.min.js"></script>
+<script src="js/flowbite.min.js"></script>
 </body>
+
 </html>
