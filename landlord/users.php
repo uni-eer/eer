@@ -56,13 +56,13 @@ $showAlert = false;
   <tbody>
     <?php
     //fetch landlord buildings
-    $landlordBuildingsQuery = "SELECT buildingAddress FROM building WHERE user_id = '$user_id'";
-    $landlordBuildingsLink = mysqli_query($conn, $landlordBuildingsQuery);
-    $landlordBuildings = mysqli_fetch_assoc($landlordBuildingsLink);
+
+    $landlordBuildingsQuery = mysqli_query($conn, "SELECT BuildingAddress FROM building WHERE user_id = '$user_id'");
 
     //finds users staying in the buildings
-    While($landlordBuildings = mysqli_fetch_assoc($landlordBuildingsLink)) {
-      $BuildingAddress = $landlordBuildings['buildingAddress'];
+
+    while($landlordBuildings = mysqli_fetch_assoc($landlordBuildingsQuery)) {
+      $BuildingAddress = $landlordBuildings['BuildingAddress'];
   
       //populates the table with data
       $data = mysqli_query($conn, "SELECT * FROM users WHERE role_id = 3 AND UserAddress = '$BuildingAddress' order by id desc");

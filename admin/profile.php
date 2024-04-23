@@ -19,7 +19,6 @@ if (isset($_POST['update_profile'])) {
     $email = mysqli_real_escape_string($conn, $_POST["email"]);
     $username = mysqli_real_escape_string($conn, $_POST["username"]);
     $phone = mysqli_real_escape_string($conn, $_POST["phone"]);
-    $address = mysqli_real_escape_string($conn, $_POST["UserAddress"]);
     $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
     // Phone number validation
@@ -46,7 +45,7 @@ if (isset($_POST['update_profile'])) {
             }
             
             // Update name and phone
-            mysqli_query($conn, "UPDATE `users` SET `fname` = '$fname', `lname` = '$lname', `phone` = '$phone', `UserAddress` = '$address' WHERE `id` = $user_id");
+            mysqli_query($conn, "UPDATE `users` SET `fname` = '$fname', `lname` = '$lname', `phone` = '$phone' WHERE `id` = $user_id");
 
             // Update Password if provided
             if (!empty($password)) {

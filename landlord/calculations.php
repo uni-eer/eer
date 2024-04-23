@@ -30,7 +30,6 @@ $data = mysqli_query($conn, "SELECT * FROM `calculations` WHERE `user_id`=$user_
    <div class="container mx-auto mt-5">
     <div class="d-flex justify-content-between">
 <div><h2>Calculations</h2></div>
-<div><a href="calculator.php" class="btn btn-primary">Add Calculation</a></div>
     </div>
     <?php if($showAlert){ ?>
       <div class="alert alert-success" role="alert">
