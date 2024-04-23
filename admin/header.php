@@ -17,14 +17,14 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="calculations.php">Calculations</a>
-</li>
+        </li>
 
         <li class="nav-item">
           <a class="nav-link" href="profile.php">Profile</a>
-</li>
+        </li>
       </ul>
       <form class="d-flex" role="search">
-      <a  href="../logout.php" class="btn btn-danger">Logout</a>
+        <a href="../logout.php" class="btn btn-danger">Logout</a>
       </form>
     </div>
   </div>

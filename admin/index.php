@@ -4,42 +4,39 @@ if (!isset($_SESSION['role'])) {
   header("location: ../login.php");
 }
 $user_id = $_SESSION['user_id'];
-if(intval($_SESSION['role']) !== 1){
+if (intval($_SESSION['role']) !== 1) {
   header("location: ../logout.php");
 }
 $showError = false;
 $showAlert = false;
 
-// fetching 
+// Fetching all buildings from the database 
 $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
 ?>
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
-    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.min.css">
+  <script src="https://cdn.datatables.net/2.0.2/js/dataTables.min.js"></script>
 </head>
+
 <body>
-    <!-- Navbar -->
-    <?php include("header.php"); ?>
-   <div class="container mx-auto mt-5">
+  <!-- Navbar -->
+  <?php include("header.php"); ?>
+  <div class="container mx-auto mt-5">
     <div class="d-flex justify-content-between">
 <div><h2>Buildings</h2></div>
     </div>
-    <?php if($showAlert){ ?>
+    <?php if ($showAlert) { ?>
       <div class="alert alert-success" role="alert">
-  <?=$showAlert?>
-</div>
-    <?php } ?> 
-    <?php if($showError){ ?>
-      <div class="alert alert-danger" role="alert">
-      <?=$showError?>
-</div>
+        <?= $showAlert ?>
+      </div>
     <?php } ?>
    <table class="table table-bordered table-striped table-hover" id="myTable">
   <thead>
@@ -119,21 +116,14 @@ $data = mysqli_query($conn, "SELECT * FROM `building` order by id desc");
     <input type="text" name="grade" class="form-control" id="grade"  required> 
   </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="submit" name="add_building" class="btn btn-primary">Add</button>
-      </div>
-      </form>
     </div>
-  </div>
-</div>
 
 
-   <script>
-    $(document).ready( function () {
-    $('#myTable').DataTable({
-        order:false,
-    });
-} );
-   </script>
+    <script>
+      $(document).ready(function() {
+        $('#myTable').DataTable({
+          order: false,
+        });
+      });
+    </script>
     <?php include("footer.php"); ?>

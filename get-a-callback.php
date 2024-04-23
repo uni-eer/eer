@@ -1,4 +1,4 @@
-<?php include("php/db.php"); 
+<?php include("php/db.php");
 $showError = false;
 $showAlert = false;
 // Adding
@@ -14,46 +14,48 @@ if (isset($_POST['submit_btn'])) {
 
   $add_callback = mysqli_query($conn, "INSERT INTO `callback`(`contact_name`, `job_title`, `phone`, `email`, `company_name`, `site_postcode`,`postcode_office`, `business_sector`, `created_at`) VALUES ('$contact_name', '$job_title', '$phone', '$email', '$company_name', '$site_postcode', '$postcode_office', '$business_sector', current_timestamp())");
 
-  if($add_callback){
-$showAlert = 'Callback is added successfully!';
-  }else{
-$showError = "Callback couldn't be added! Server error";
+  if ($add_callback) {
+    $showAlert = 'Callback is added successfully!';
+  } else {
+    $showError = "Callback couldn't be added! Server error";
   }
 }
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/flowbite.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/style.css">
-    <title>Get a callback</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/flowbite.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css">
+  <title>Get a callback</title>
 </head>
+
 <body>
-    <!-- Navbar -->
-    <?php include("header.php"); ?>
+  <!-- Navbar -->
+  <?php include("header.php"); ?>
 
-<div class="px-4 max-w-screen-xl mx-auto flex justify-between " style="padding-top: 6rem; padding-bottom: 6rem;">
-        <div>
-        <h1 class="mb-8 text-4xl font-bold tracking-tight leading-none text-white" style="color: red;">Interested in Energy management tools?</h1>
-        <p class="">Simply fill in the form and we'll be in touch as soon as we can.</p>
+  <div class="px-4 max-w-screen-xl mx-auto flex justify-between " style="padding-top: 6rem; padding-bottom: 6rem;">
+    <div>
+      <h1 class="mb-8 text-4xl font-bold tracking-tight leading-none text-white" style="color: red;">Interested in Energy management tools?</h1>
+      <p class="">Simply fill in the form and we'll be in touch as soon as we can.</p>
 
-        <form class="space-y-6 mt-10" method="POST">
-      
+      <form class="space-y-6 mt-10" method="POST">
 
-<?php if($showAlert){ ?>
-    <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-    <?=$showAlert?>
-</div>
-    <?php } ?> 
-    <?php if($showError){ ?>
-        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
-    <?=$showError?>
-</div>
-    <?php } ?>
 
-<p class="font-bold">About you</p>
+        <?php if ($showAlert) { ?>
+          <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
+            <?= $showAlert ?>
+          </div>
+        <?php } ?>
+        <?php if ($showError) { ?>
+          <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+            <?= $showError ?>
+          </div>
+        <?php } ?>
+
+        <p class="font-bold">About you</p>
         <div class="mt-0">
           <input id="contact_name" name="contact_name" type="text" placeholder="Contact Name" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
         </div>
@@ -90,20 +92,20 @@ $showError = "Callback couldn't be added! Server error";
         </div>
 
         <button type="submit" name="submit_btn" class="inline-flex justify-center items-center py-3 px-5 focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-base me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                Get a callback
-                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </button> 
+          Get a callback
+          <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9" />
+          </svg>
+        </button>
 
 
-        </form>
-        </div>
+      </form>
     </div>
+  </div>
 
-  
 
-    
+
+
 
   <!-- Footer -->
   <?php include("footer.php"); ?>
